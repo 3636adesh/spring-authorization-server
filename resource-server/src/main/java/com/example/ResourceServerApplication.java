@@ -19,30 +19,31 @@ public class ResourceServerApplication {
     }
 
 
-    @Service
-   static class GreetingService {
+}
 
-        public Map<String, String> greet() {
-            var jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return Map.of("message", "hello," + jwt.getSubject());
-        }
+@Service
+class GreetingService {
+
+    public Map<String, String> greet() {
+        var jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return Map.of("message", "hello," + jwt.getSubject());
+    }
+}
+
+@RestController
+class GreetingRestController {
+
+
+    private final GreetingService greetingService;
+
+    public GreetingRestController(GreetingService greetingService) {
+        this.greetingService = greetingService;
     }
 
-    @RestController
-    static class GreetingRestController {
 
-
-        private final GreetingService greetingService;
-
-        public GreetingRestController(GreetingService greetingService) {
-            this.greetingService = greetingService;
-        }
-
-
-        @PreAuthorize("hasAuthority('SCOPE_user.read')")
-        @GetMapping
-        public Map<String, String> greet() {
-            return greetingService.greet();
-        }
+    @PreAuthorize("hasAuthority('SCOPE_user.read')")
+    @GetMapping
+    public Map<String, String> greet() {
+        return greetingService.greet();
     }
 }

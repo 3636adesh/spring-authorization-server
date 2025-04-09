@@ -23,9 +23,15 @@ public class OauthClientApplication {
                 .routes()
                 .route(rs->rs
                         .path("/")
-                        .filters(GatewayFilterSpec::tokenRelay)
-                        .uri("http://localhost:9091"))             // resource server
+                        .filters(f -> f
+                                .removeRequestHeader("Cookie")
+                                .tokenRelay()
+                        )
+                        .uri("http://localhost:9091")
+                )
                 .build();
     }
+
+
 
 }

@@ -5,5 +5,7 @@
 - 2.Spring Security OAuth2 Client
 - 3.Spring Security OAuth2 Resource Server
 
-
-![OAuth2 Flow](oauth2-flow.jpeg)
+# Spring Authorization Server
+![auth-server-and-resource-server](auth-server-%3Eauth-resourcer.jpeg)
+# Auth Configuration
+![auth-cfg](authorization-cfg.jpeg)
